@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <meta charset=utf-8>
+    <meta http-equiv=X-UA-Compatible content="IE=edge">
+    <meta name=viewport content="width=device-width,initial-scale=1">
+    <link rel=icon href=../static/favicon.ico>
+    <title>tour-web</title>
+
+    <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+</head>
+<body>
+    <button id="alipay" onclick="function alipay() {
+        $.post('/travel/json/user/order/add',{'scenicSpotId':'1587649892324820042137','ticketNum':1});
+    }
+    alipay()"></button>
+
+
+    <form action="/travel/json/user/order/add" method="post">
+        <input name="scenicSpotId" value="1587649892324820042137" hidden>
+        <input name="ticketNum" value="1" hidden>
+
+        <button type="submit">支付宝支付</button>
+    </form>
+</body>
+</html>

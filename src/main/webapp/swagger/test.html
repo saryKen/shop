@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>跨域请求测试</title>
+
+	<script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+</head>
+<body>
+
+	<!-- json跨域测试 -->
+	<script>
+
+		var roomId = "2";
+		var checkinDay = 1;
+		var tenant1 = {tenantName:"张三",tenantSex:"男",tenantIdCard:"123214144353254",tenantTel:"1242"};
+		var tenant2 = {tenantName:"李四",tenantSex:"男",tenantIdCard:"123214144353254",tenantTel:"1242"};
+		var tenants = new Array();
+		tenants.push(tenant1);
+		tenants.push(tenant2);
+		var formData = {roomId:roomId,checkinDay:checkinDay,tenants:tenants};
+
+		$.ajax({
+		    url: 'http://localhost:8080/HotelManagement/json/checkin/add',
+		    type: 'post',
+		    contentType: "application/json;charset=utf-8",
+		    dataType: 'json',  // 请求方式为jsonp
+		    // jsonpCallback: "callback",    // 自定义回调函数名
+		    data: JSON.stringify(formData),
+		    success:function(res){
+		    	console.log(res);
+		    }
+		});
+
+
+	</script>
+
+
+</body>
+</html>
