@@ -16,4 +16,8 @@ public interface GoodsService {
     Result delete(GoodsForm.deleteForm form);
 
     Result newProduct();
+
+    Result hotOrderProduct();
+
+    Result hotProduct();
 }

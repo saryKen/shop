@@ -4,10 +4,14 @@
         "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
 <generatorConfiguration>
     <!--数据库驱动-->
-    <classPathEntry    location="D:\E\ideaProject\project\src\main\generator\mysql-connector-java-8.0.12.jar"/>
+<<<<<<< Updated upstream
+    <classPathEntry    location="D:\E\IDEA space\shop\src\main\generator\mysql-connector-java-8.0.12.jar"/>
+=======
+    <classPathEntry    location="D:/IDEA/maven/reporitory/mysql/mysql-connector-java/8.0.13/mysql-connector-java-8.0.13.jar"/>
+>>>>>>> Stashed changes
 
 
-    <context id="DB2Tables"    targetRuntime="MyBatis3">
+    <context id="DB2Tables"  targetRuntime="MyBatis3">
 
         <!--创建Java类时是否取消生成注释-->
         <commentGenerator>
@@ -17,8 +21,12 @@
 
         <!--数据库链接地址账号密码-->
         <jdbcConnection driverClass="com.mysql.cj.jdbc.Driver"
-                        connectionURL="jdbc:mysql://120.24.186.190:3306/travel?serverTimezone=Hongkong&amp;useSSL=false"
+                        connectionURL="jdbc:mysql://120.24.186.190:3306/shop?serverTimezone=Hongkong&amp;useSSL=false"
+<<<<<<< Updated upstream
+                        userId="shop" password="123ABCabc...">
+=======
                         userId="root" password="abcABC123...">
+>>>>>>> Stashed changes
 
             <!--MySQL 8.x 需要指定服务器的时区-->
             <property name="serverTimezone" value="UTC"/>
@@ -33,7 +41,7 @@
         </javaTypeResolver>
 
         <!--生成Model类存放位置-->
-        <javaModelGenerator targetPackage="com.model.product" targetProject="./src/main/java">
+        <javaModelGenerator targetPackage="com.model.order" targetProject="./src/main/java">
             <property name="enableSubPackages" value="true"/>
             <property name="trimStrings" value="true"/>
         </javaModelGenerator>
@@ -44,19 +52,19 @@
         </sqlMapGenerator>
 
         <!--生成Dao类存放位置-->
-        <javaClientGenerator type="XMLMAPPER" targetPackage="com.mapper.product" targetProject="./src/main/java">
+        <javaClientGenerator type="XMLMAPPER" targetPackage="com.mapper.order" targetProject="./src/main/java">
             <property name="enableSubPackages" value="true"/>
         </javaClientGenerator>
 
         <!--生成对应表及类名-->
-        <table tableName="orders" domainObjectName="Order"
+        <table tableName="goods" domainObjectName="Goods"
                enableCountByExample="true"  enableUpdateByExample="true"
                enableDeleteByExample="true" enableSelectByExample="true" selectByExampleQueryId="true">
             <!--默认是FALSE的，表示针对字段的下划线转换为驼峰写法，而为TRUE，表示原样输出数据库字段中的值-->
             <property name="useActualColumnNames" value="true"/>
 
 
-            <columnOverride column="scenicSpotInfo" jdbcType="VARCHAR" />
+            <columnOverride column="goodsInfo" jdbcType="VARCHAR" />
         </table>
 
 

@@ -3,6 +3,7 @@ package com.service.product;
 import com.form.product.GoodsForm;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.mapper.order.OrderMapper;
 import com.mapper.product.GoodsImgMapper;
 import com.mapper.product.GoodsMapper;
 import com.model.product.*;
@@ -19,6 +20,7 @@ import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 商品 操作 业务逻辑层
@@ -29,6 +31,8 @@ public class GoodsServiceImpl implements GoodsService{
     GoodsMapper goodsMapper;
     @Resource
     GoodsImgMapper goodsImgMapper;
+    @Resource
+    OrderMapper orderMapper;
 
     /**
      * 根据id查询 商品 详情信息
@@ -213,6 +217,7 @@ public class GoodsServiceImpl implements GoodsService{
     @Override
     public Result newProduct() {
 
+
         List<Goods> goodsList = goodsMapper.newProduct();
         //查询商品图片
         for (Goods goods : goodsList) {
@@ -223,6 +228,47 @@ public class GoodsServiceImpl implements GoodsService{
             goods.setImgUrls( convertImg(goodsImgs) );
         }
 
+        return Result.success(goodsList);
+    }
+
+    @Override
+    public Result hotProduct() {
+
+        ArrayList<Goods> goodsList = new ArrayList<>();
+
+//        得到前三的商品id
+        List<String> GoodsIds = orderMapper.selectGoodsIdsByCountTop();
+        for(String goodsId:GoodsIds){
+
+            Goods goods = goodsMapper.selectByPrimaryKey(goodsId);
+            GoodsImgExample imgExample = new GoodsImgExample();
+            imgExample.createCriteria().andGoodsIdEqualTo(goodsId);
+            List<GoodsImg> goodsImgs = goodsImgMapper.selectByExample(imgExample);
+            goods.setImgUrls( convertImg(goodsImgs) );
+
+            goodsList.add(goods);
+        }
+
+        return Result.success(goodsList);
+    }
+
+    @Override
+    public Result hotOrderProduct() {
+
+        ArrayList<Goods> goodsList = new ArrayList<>();
+
+//        得到订单量前十的商品id
+        List<String> GoodsIds = orderMapper.selectByCount();
+        for(String goodsId:GoodsIds){
+
+            Goods goods = goodsMapper.selectByPrimaryKey(goodsId);
+            GoodsImgExample imgExample = new GoodsImgExample();
+            imgExample.createCriteria().andGoodsIdEqualTo(goodsId);
+            List<GoodsImg> goodsImgs = goodsImgMapper.selectByExample(imgExample);
+            goods.setImgUrls( convertImg(goodsImgs) );
+
+            goodsList.add(goods);
+        }
         return Result.success(goodsList);
     }
 
